@@ -1,9 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import ProfileCard from "../components/ProfileCard";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Sohom829">
-	<main>
-		<h1 class="font-bold text-3xl">Hello, world</h1>
-	</main>
+  <main>
+    <div class="flex min-h-screen items-center justify-center">
+		<ProfileCard client:visible />
+	</div>
+  </main>
 </Layout>

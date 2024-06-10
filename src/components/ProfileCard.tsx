@@ -65,6 +65,7 @@ export default function ProfileCard() {
       <CardBody>
         <div className="flex flex-col items-center gap-5 text-center md:flex-row md:text-left lg:flex-row lg:text-left xl:flex-row xl:text-left">
           <Image
+            isBlurred
             src="https://avatars.githubusercontent.com/u/94981761?v=4"
             alt="sohom829"
             width={256}
@@ -90,7 +91,7 @@ export default function ProfileCard() {
             <div className="mt-2 flex items-center justify-center gap-2 text-foreground-400 md:justify-start">
               {icons.map(({ component: Icon, link, color, name }) => (
                 <Tooltip key={link} content={name}>
-                  <Link href={link} target="_blank">
+                  <Link aria-label={`link-${name}`} href={link} target="_blank">
                     <motion.div
                       variants={iconVariants}
                       initial="initial"

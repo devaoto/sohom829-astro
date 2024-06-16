@@ -1,4 +1,6 @@
 ---
+import { SEO } from 'astro-seo';
+
 interface Props {
   title: string;
 }
@@ -15,26 +17,39 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <SEO
+      client:load
+      title="Sohom829"
+      description="My name is Mohtasim Alam Sohom"
+      twitter={{ creator: '@sohom_829' }}
+      openGraph={{
+        basic: {
+          title: 'Sohom829',
+          image: 'https://avatars.githubusercontent.com/u/94981761?v=4',
+          type: 'Portfolio',
+        },
+      }}
+    />
   </head>
   <body>
     <slot />
+    <style is:global>
+      html {
+        font-family: system-ui, sans-serif;
+        background: #13151a;
+        background-size: 224px;
+      }
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+    </style>
   </body>
 </html>
-<style is:global>
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-  }
-  code {
-    font-family:
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
-  }
-</style>

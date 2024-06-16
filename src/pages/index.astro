@@ -1,14 +1,18 @@
 ---
 import ProfileCard from '../components/ProfileCard';
 import Layout from '../layouts/Layout.astro';
+
+const defaultImageURL =
+  'https://cors-proxy.sohom829.xyz/https://gtwallpaper.org/sites/default/files/wallpaper/244938/beautiful-background-anime-244938-1920396-588654.png';
 ---
 
 <Layout title="Sohom829">
   <main>
     <div>
       <img
+        id="background-image"
         draggable="false"
-        src="https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg"
+        src={defaultImageURL}
         alt="Background Image"
         class="absolute max-h-screen opacity-50 min-h-screen -z-10 object-cover min-w-full select-none"
       />
@@ -17,4 +21,44 @@ import Layout from '../layouts/Layout.astro';
       <ProfileCard client:visible />
     </div>
   </main>
+
+  <script>
+    async function fetchImageURLs() {
+      const fallbackImageURL =
+        'https://cors-proxy.sohom829.xyz/https://gtwallpaper.org/sites/default/files/wallpaper/244938/beautiful-background-anime-244938-1920396-588654.png';
+      const imgElement = document.getElementById(
+        'background-image',
+      ) as HTMLImageElement;
+
+      try {
+        const res1 = await fetch(
+          'https://cors-proxy.sohom829.xyz/https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg',
+        );
+        if (res1.ok) {
+          imgElement.src =
+            'https://cors-proxy.sohom829.xyz/https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg';
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const res2 = await fetch(
+          'https://cors-proxy.sohom829.xyz/https://wallpapers.com/images/hd/beautiful-anime-scenery-dwt20z3tu688pngu.jpg',
+        );
+        if (res2.ok) {
+          imgElement.src =
+            'https://cors-proxy.sohom829.xyz/https://wallpapers.com/images/hd/beautiful-anime-scenery-dwt20z3tu688pngu.jpg';
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      imgElement.src = fallbackImageURL;
+    }
+
+    fetchImageURLs();
+  </script>
 </Layout>

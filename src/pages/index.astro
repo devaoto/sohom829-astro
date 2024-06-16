@@ -30,13 +30,36 @@ const defaultImageURL =
         'background-image',
       ) as HTMLImageElement;
 
+      async function setImage(url: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(url);
+          img.onerror = reject;
+          img.src = url;
+        });
+      }
+
+      async function updateImage(url: string) {
+        imgElement.style.opacity = '0';
+        try {
+          const newUrl = await setImage(url);
+          imgElement.src = newUrl;
+          imgElement.style.opacity = '1';
+        } catch (error) {
+          console.error('Failed to load image:', error);
+          imgElement.src = fallbackImageURL;
+          imgElement.style.opacity = '1';
+        }
+      }
+
       try {
         const res1 = await fetch(
           'https://cors-proxy.sohom829.xyz/https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg',
         );
         if (res1.ok) {
-          imgElement.src =
-            'https://cors-proxy.sohom829.xyz/https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg';
+          await updateImage(
+            'https://cors-proxy.sohom829.xyz/https://i.pinimg.com/originals/50/22/87/5022879690af0c36ce4132fc8ec343a0.jpg',
+          );
           return;
         }
       } catch (error) {
@@ -48,15 +71,16 @@ const defaultImageURL =
           'https://cors-proxy.sohom829.xyz/https://wallpapers.com/images/hd/beautiful-anime-scenery-dwt20z3tu688pngu.jpg',
         );
         if (res2.ok) {
-          imgElement.src =
-            'https://cors-proxy.sohom829.xyz/https://wallpapers.com/images/hd/beautiful-anime-scenery-dwt20z3tu688pngu.jpg';
+          await updateImage(
+            'https://cors-proxy.sohom829.xyz/https://wallpapers.com/images/hd/beautiful-anime-scenery-dwt20z3tu688pngu.jpg',
+          );
           return;
         }
       } catch (error) {
         console.error(error);
       }
 
-      imgElement.src = fallbackImageURL;
+      await updateImage(fallbackImageURL);
     }
 
     fetchImageURLs();
